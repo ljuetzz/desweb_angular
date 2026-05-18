@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from "@angular/material/input";//angular material must be installed before
 import { MatTooltip } from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 
 //To use the controls in the component
@@ -32,7 +33,8 @@ import { TileJSON } from 'ol/source';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatTooltip
+    MatTooltip,
+    MatCheckboxModule
   ],
   templateUrl: './street-form.component.html',
   styleUrl: './street-form.component.scss'
@@ -46,20 +48,24 @@ export class StreetFormComponent {
   id = new FormControl('');
   name = new FormControl('', [Validators.required]);
   length = new FormControl<number | null>(null);
+  lanes = new FormControl(1, [Validators.required]);
   description = new FormControl('', [Validators.required]);
   category = new FormControl('', [Validators.required]);
   visitedAt = new FormControl('', [Validators.required]);
   geom = new FormControl('', [Validators.required, Validators.minLength(10)]);
+  allow_intersections = new FormControl(false);
 
   //Create a form group to eval the data at once
   controlsGroup = new FormGroup({
       id: this.id,
       name: this.name,
       length: this.length,
+      lanes: this.lanes,
       description: this.description,
       category: this.category,
       visitedAt: this.visitedAt,
-      geom: this.geom
+      geom: this.geom,
+      allow_intersections: this.allow_intersections
   });
 
   //Pay attention to::
@@ -190,9 +196,11 @@ export class StreetFormComponent {
     this.name.setValue(data.name);
     this.description.setValue(data.description);
     this.length.setValue(data.length);
+    this.lanes.setValue(data.lanes);
     this.category.setValue(data.category);
     this.visitedAt.setValue(data.visitedAt);
     this.geom.setValue(data.geom);
+    this.allow_intersections.setValue(data.allow_intersections);
   }
 
   useGeomInUrl(){

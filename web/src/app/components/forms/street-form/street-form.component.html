@@ -24,6 +24,11 @@
             <br>
 
             <mat-form-field>
+                <input matInput placeholder="Lanes" [formControl]="lanes" name="lanes">
+            </mat-form-field>
+            <br>
+
+            <mat-form-field>
                 <input matInput placeholder="Category" [formControl]="category" name="category">
             </mat-form-field>
             <br>
@@ -35,6 +40,10 @@
             <mat-form-field>
                 <input matInput placeholder="Geometry WKT" [formControl]="geom" name="geom">
             </mat-form-field> 
+            <br>
+            <mat-checkbox [formControl]="allow_intersections" name="allow_intersections">
+                Allow intersections
+            </mat-checkbox>
             <!-- -->
             <br>
             <button mat-button matTooltip="Insert" mat-raised-button [disabled]="!controlsGroup.valid" (click)="insert()">Insert</button>
