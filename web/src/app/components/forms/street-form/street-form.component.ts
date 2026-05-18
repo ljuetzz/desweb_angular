@@ -106,12 +106,12 @@ export class StreetFormComponent {
       this.serverMessage='Put an id';
       return;
     }
-    this.apiService.get('erasmus_valencia/streets/selectone/' + this.id.value + '/').subscribe({
+    this.apiService.get('erasmus_valencia/streets/selectone/?id=' + this.id.value).subscribe({
       next: (response: ServerAnswerModel) => {
         console.log('response',response)
         console.log('response.data',response.data)
         if (response.ok){
-          var d: StreetModel = response.data[0] as StreetModel;
+          var d: StreetModel = response.data as StreetModel;
           this.setDataInForm(d);
           this.clearList();
         }
@@ -146,7 +146,8 @@ export class StreetFormComponent {
       this.serverMessage='Put an id';
       return;
     }
-    this.apiService.post('erasmus_valencia/streets/delete/' + this.id.value + '/').subscribe({
+    // id is in the body not
+    this.apiService.post('erasmus_valencia/streets/delete/', {id: this.id.value}).subscribe({
       next: (response: ServerAnswerModel) => {
         console.log('response',response)
         console.log('response.data',response.data)
@@ -200,7 +201,7 @@ export class StreetFormComponent {
     this.category.setValue(data.category);
     this.visitedAt.setValue(data.visitedAt);
     this.geom.setValue(data.geom);
-    this.allow_intersections.setValue(data.allow_intersections);
+    this.allow_intersections.setValue(false);
   }
 
   useGeomInUrl(){
