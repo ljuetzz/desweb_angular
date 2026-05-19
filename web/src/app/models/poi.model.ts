@@ -11,4 +11,6 @@ export class POIModel {
     public visitedAt: string = '';
 
     public geom: string = '';
+
+    public rating: number | null = null;
 }

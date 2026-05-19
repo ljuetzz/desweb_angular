@@ -11,6 +11,8 @@ import {MatInputModule} from "@angular/material/input";//angular material must b
 import { MatTooltip } from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 //To use the controls in the component
 //  Import in the imports on the component the following
@@ -33,7 +35,8 @@ import { TileJSON } from 'ol/source';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatTooltip
+    MatTooltip,
+    MatCheckboxModule
   ],
   templateUrl: './poi-form.component.html',
   styleUrl: './poi-form.component.scss'
@@ -42,18 +45,16 @@ export class PoiFormComponent {
   geomInUrl = false;
   l: POIModel[]=[]
   serverMessage = '';
+
   //Form component creation
   id = new FormControl('');
-
   name = new FormControl('', [Validators.required]);
-
   description = new FormControl('', [Validators.required]);
-
   category = new FormControl('', [Validators.required]);
-
   visitedAt = new FormControl('', [Validators.required]);
-
   geom = new FormControl('', [Validators.required, Validators.minLength(10)]);
+  rating = new FormControl<number | null>(null);
+  allow_outside_building = new FormControl(false);
 
   //Create a form group to eval the data at once
   controlsGroup = new FormGroup({
@@ -62,7 +63,9 @@ export class PoiFormComponent {
       description: this.description,
       category: this.category,
       visitedAt: this.visitedAt,
-      geom: this.geom
+      geom: this.geom,
+      rating: this.rating,
+      allow_outside_building: this.allow_outside_building
   });
 
   //Pay attention to::
@@ -103,12 +106,13 @@ export class PoiFormComponent {
       this.serverMessage='Put an id';
       return;
     }
-    this.apiService.get('erasmus_valencia/pois/selectone/' + this.id.value + '/').subscribe({
+    // id is a parameter in the url for selectone, so we use get, not post
+    this.apiService.get('erasmus_valencia/pois/selectone/?id=' + this.id.value).subscribe({
       next: (response: ServerAnswerModel) => {
         console.log('response',response)
         console.log('response.data',response.data)
         if (response.ok){
-          var d: POIModel = response.data[0] as POIModel;
+          var d: POIModel = response.data as POIModel;
           this.setDataInForm(d);
           this.clearList();
         }
@@ -143,7 +147,8 @@ export class PoiFormComponent {
       this.serverMessage='Put an id';
       return;
     }
-    this.apiService.post('erasmus_valencia/pois/delete/' + this.id.value + '/').subscribe({
+    // id is a parameter in the body for delete
+    this.apiService.post('erasmus_valencia/pois/delete/', {id: this.id.value}).subscribe({
       next: (response: ServerAnswerModel) => {
         console.log('response',response)
         console.log('response.data',response.data)
@@ -188,6 +193,7 @@ export class PoiFormComponent {
   clearList(){
     this.l = [];
   }
+
   setDataInForm(data: POIModel){
     this.id.setValue(data.id.toString());
     this.name.setValue(data.name);
@@ -195,6 +201,8 @@ export class PoiFormComponent {
     this.category.setValue(data.category);
     this.visitedAt.setValue(data.visitedAt);
     this.geom.setValue(data.geom);
+    this.rating.setValue(data.rating);
+    this.allow_outside_building.setValue(false);
   }
 
   useGeomInUrl(){

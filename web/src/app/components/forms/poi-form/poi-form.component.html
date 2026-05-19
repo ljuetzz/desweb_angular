@@ -28,8 +28,16 @@
             </mat-form-field>
             <br>
             <mat-form-field>
+                <input matInput placeholder="Rating" [formControl]="rating" name="rating">
+            </mat-form-field>
+            <br>
+            <mat-form-field>
                 <input matInput placeholder="Geometry WKT" [formControl]="geom" name="geom">
-            </mat-form-field> 
+            </mat-form-field>
+            <br>
+            <mat-checkbox [formControl]="allow_outside_building" name="allow_outside_building">
+                Allow outside building
+            </mat-checkbox>
             <!-- -->
             <br>
             <button mat-button matTooltip="Insert" mat-raised-button [disabled]="!controlsGroup.valid" (click)="insert()">Insert</button>
