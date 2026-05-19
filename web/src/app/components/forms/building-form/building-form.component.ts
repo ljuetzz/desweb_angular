@@ -105,12 +105,12 @@ export class BuildingFormComponent implements OnInit{
       this.serverMessage='Put an id';
       return;
     }
-    this.apiService.get('erasmus_valencia/buildings/selectone/' + this.id.value + '/').subscribe({
+    this.apiService.get('erasmus_valencia/buildings/selectone/?id=' + this.id.value).subscribe({
       next: (response: ServerAnswerModel) => {
         console.log('response',response)
         console.log('response.data',response.data)
         if (response.ok){
-          var d: BuildingModel = response.data[0] as BuildingModel;
+          var d: BuildingModel = response.data as BuildingModel;
           this.setDataInForm(d);
           this.clearList();
         }
@@ -145,7 +145,7 @@ export class BuildingFormComponent implements OnInit{
       this.serverMessage='Put an id';
       return;
     }
-    this.apiService.post('erasmus_valencia/buildings/delete/' + this.id.value + '/').subscribe({
+    this.apiService.post('erasmus_valencia/buildings/delete/', {id: this.id.value}).subscribe({
       next: (response: ServerAnswerModel) => {
         console.log('response',response)
         console.log('response.data',response.data)

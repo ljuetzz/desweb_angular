@@ -61,7 +61,10 @@ export class ApiService {
     let params = new HttpParams();
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
-        params = params.set(key, data[key].toString()); // Convertimos el valor a string
+        // old version: params = params.set(key, data[key].toString()); // Convertimos el valor a string
+        if (data[key] !== null && data[key] !== undefined) {
+          params = params.set(key, data[key].toString());
+        }
       }
     }
     return params.toString();
