@@ -161,6 +161,36 @@ export class BuildingFormComponent implements OnInit{
     })//subscribe
   }
 
+  fillFormwithExample() {
+
+    this.name.setValue('Example building');
+    this.description.setValue('Description of the example building');
+    this.floors.setValue('3');
+    this.height.setValue('10');
+    this.category.setValue('Example category');
+    this.visitedAt.setValue(new Date().toISOString());
+
+    function randomIntFromInterval(min: number, max: number): number {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    const x = randomIntFromInterval(0, 10);
+    const y = randomIntFromInterval(0, 10);
+    const size = randomIntFromInterval(1, 5);
+
+    const coordinates = [
+      `${x} ${y}`,
+      `${x + size} ${y}`,
+      `${x + size} ${y + size}`,
+      `${x} ${y + size}`,
+      `${x} ${y}` // polygon schließen
+    ];
+
+    this.geom.setValue(
+      'POLYGON((' + coordinates.join(',') + '))'
+    );
+  }
+
   update(){
     this.serverMessage='';
     console.log(this.controlsGroup.value)
