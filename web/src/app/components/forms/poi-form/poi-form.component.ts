@@ -124,6 +124,24 @@ export class PoiFormComponent {
     })//subscribe
   }
 
+  fillFormwithExample() {
+
+    this.name.setValue('Example POI');
+    this.description.setValue('Description of the example POI');
+    this.category.setValue('Example category');
+    this.visitedAt.setValue(new Date().toISOString());
+
+    function randomIntFromInterval(min: number, max: number): number {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    const x = randomIntFromInterval(0, 100);
+    const y = randomIntFromInterval(0, 100);
+
+    this.geom.setValue(`POINT(${x} ${y})`);
+    this.rating.setValue(randomIntFromInterval(0, 5));
+  }
+
   selectAll(){
     this.serverMessage='';
     this.apiService.get('erasmus_valencia/pois/selectall/').subscribe({

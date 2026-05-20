@@ -123,6 +123,36 @@ export class StreetFormComponent {
     })//subscribe
   }
 
+  fillFormwithExample() {
+
+    this.name.setValue('Example street');
+    this.description.setValue('Description of the example street');
+    this.category.setValue('Example category');
+    this.visitedAt.setValue(new Date().toISOString());
+
+
+
+    function randomIntFromInterval(min: number, max: number): number {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    this.length.setValue(randomIntFromInterval(10, 1000));
+    this.lanes.setValue(randomIntFromInterval(1, 5));
+    const coordinates = [];
+
+    for (let i = 0; i < 4; i++) {
+      const x = randomIntFromInterval(0, 100);
+      const y = randomIntFromInterval(0, 100);
+
+      coordinates.push(`${x} ${y}`);
+    }
+
+    this.geom.setValue(
+      'LINESTRING(' + coordinates.join(',') + ')'
+    );
+  }
+
+
   selectAll(){
     this.serverMessage='';
     this.apiService.get('erasmus_valencia/streets/selectall/').subscribe({
