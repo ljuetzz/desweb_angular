@@ -112,7 +112,7 @@ export class PoiFormComponent {
         console.log('response',response)
         console.log('response.data',response.data)
         if (response.ok){
-          var d: POIModel = response.data as POIModel;
+          var d: POIModel = response.data[0] as POIModel;
           this.setDataInForm(d);
           this.clearList();
         }
