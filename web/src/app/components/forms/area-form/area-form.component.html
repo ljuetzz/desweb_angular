@@ -1,0 +1,25 @@
+<p>area-form works!</p>
+<div class="flexbox-exterior-container">
+    <div class="flexbox-responsive-interior-container-500px">
+        <h6 class="text-align-center">Area form</h6>
+
+        <!--Form start-->
+        <form [formGroup]="controlsGroup"> 
+            <p>Specify the id only in case of select, update or delete</p>
+            <mat-form-field>
+                <input matInput placeholder="base" [formControl]="base" name="base">
+            </mat-form-field>   
+            <br> 
+            <mat-form-field>
+                <input matInput placeholder="height" [formControl]="height" name="height">
+            </mat-form-field>  
+            <br>
+            <!-- -->
+            <br>
+            <button mat-button matTooltip="Calcular" mat-raised-button [disabled]="!controlsGroup.valid" (click)="calculate_area()">Calcular</button>
+            <button mat-button matTooltip="Limpiar" (click)="clearForm()">Limpiar</button>
+            <br>
+            <p>{{serverMessage}}</p>
+        </form>
+    </div>
+</div>

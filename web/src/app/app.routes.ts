@@ -8,6 +8,7 @@ import { LoginFormComponent } from './components/forms/login-form/login-form.com
 import { LogoutFormComponent } from './components/forms/logout-form/logout-form.component';
 import { PoiFormComponent } from './components/forms/poi-form/poi-form.component';
 import { StreetFormComponent } from './components/forms/street-form/street-form.component';
+import { AreaFormComponent } from './components/forms/area-form/area-form.component';       
 
 
 
@@ -21,5 +22,6 @@ export const routes: Routes = [
     {path: 'login-form', component:LoginFormComponent},
     {path: 'logout-form', component:LogoutFormComponent},
     {path: 'poi-form', component:PoiFormComponent},
-    {path: 'street-form', component:StreetFormComponent}
+    {path: 'street-form', component:StreetFormComponent},
+    {path: 'area-form', component:AreaFormComponent},
 ];

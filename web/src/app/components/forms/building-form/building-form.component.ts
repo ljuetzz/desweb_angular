@@ -90,6 +90,7 @@ export class BuildingFormComponent implements OnInit{
     this.apiService.post('erasmus_valencia/buildings/insert/',this.controlsGroup.value).subscribe({
       next: (response: ServerAnswerModel) => {
         console.log('response',response)
+        //this.serverMessage=response.message;
         this.selectAll();
       },
       error:error=>{

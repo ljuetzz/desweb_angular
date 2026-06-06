@@ -80,7 +80,7 @@ export class MapService {
         source: new TileWMS({
           url: this.settingsService.GEOSERVER_URL + 'wms?',
           params: {
-            'LAYERS': 'buildings_buildings', 'VERSION': '1.3.0', 'TILED': true, 'TRANSPARENT': true, 'FORMAT': 'image/png'
+            'LAYERS': 'erasmus_valencia', 'VERSION': '1.3.0', 'TILED': true, 'TRANSPARENT': true, 'FORMAT': 'image/png'
           }
         })
       });
@@ -94,11 +94,30 @@ export class MapService {
       }   
     });//The layer were we will draw
 
+    var streetWMS = new TileLayer({
+        properties: {
+          title: 'Street WMS'
+        },
+        source: new TileWMS({
+          url: this.settingsService.GEOSERVER_URL + 'wms?',
+          params: {
+            'LAYERS': 'streets', 'VERSION': '1.3.0', 'TILED': true, 'TRANSPARENT': true, 'FORMAT': 'image/png'
+          }
+        })
+      });
+    var streetsVectorSource = new VectorSource({wrapX: false});
+    var streetsVectorLayer = new VectorLayer({
+      source: streetsVectorSource,
+      properties: {
+        title: 'Streets vector'
+      }
+    });
+
     var myLayersGroup = new LayerGroup({
         properties: {
           title: 'My layers'
         },
-        layers: [buildings, buildingsVectorLayer]
+        layers: [buildings, buildingsVectorLayer, streetWMS, streetsVectorLayer]
       });
     return myLayersGroup;
   }
