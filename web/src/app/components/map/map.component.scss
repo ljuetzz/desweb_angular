@@ -19,7 +19,7 @@
     opacity: 1;
 }
 
-#draw-flower {
+#draw-poi {
     position: absolute;
     left: 20px;
     top: 50px;
@@ -32,6 +32,15 @@
     position: absolute;
     left: 20px;
     top: 80px;
+    z-index: 1;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+#query-building {
+    position: absolute;
+    left: 20px;
+    top: 110px;
     z-index: 1;
     border-radius: 5px;
     opacity: 1;

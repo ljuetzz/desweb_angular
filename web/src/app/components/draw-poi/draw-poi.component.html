@@ -1,0 +1,5 @@
+@if (drawMode) {
+    <button mat-button (click)="toggleDrawMode()"><mat-icon matTooltip="Stop placing POI">clear</mat-icon></button>
+} @else {
+    <button mat-button (click)="toggleDrawMode()"><mat-icon matTooltip="Start placing POI">add_location</mat-icon></button>
+}

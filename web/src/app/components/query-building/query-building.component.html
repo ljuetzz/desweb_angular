@@ -1,0 +1,11 @@
+<!--
+Icon list:
+https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/
+-->
+
+
+@if (queryMode) {
+    <button mat-button (click)="toggleQueryMode()"><mat-icon matTooltip="Stop querying building">clear</mat-icon></button>
+} @else {
+    <button mat-button (click)="toggleQueryMode()"><mat-icon matTooltip="Start querying building">search</mat-icon></button>
+}

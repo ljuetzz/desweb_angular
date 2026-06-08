@@ -113,11 +113,19 @@ export class MapService {
       }
     });
 
+    var poiVectorSource = new VectorSource({wrapX: false});
+    var poiVectorLayer = new VectorLayer({
+      source: poiVectorSource,
+      properties: {
+        title: 'POI vector'
+      }
+    });
+
     var myLayersGroup = new LayerGroup({
         properties: {
           title: 'My layers'
         },
-        layers: [buildings, buildingsVectorLayer, streetWMS, streetsVectorLayer]
+        layers: [buildings, buildingsVectorLayer, streetWMS, streetsVectorLayer, poiVectorLayer]
       });
     return myLayersGroup;
   }
