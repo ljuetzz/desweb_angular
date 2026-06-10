@@ -80,7 +80,7 @@ export class MapService {
         source: new TileWMS({
           url: this.settingsService.GEOSERVER_URL + 'wms?',
           params: {
-            'LAYERS': 'erasmus_valencia', 'VERSION': '1.3.0', 'TILED': true, 'TRANSPARENT': true, 'FORMAT': 'image/png'
+            'LAYERS': 'erasmus_valencia_building', 'VERSION': '1.3.0', 'TILED': true, 'TRANSPARENT': true, 'FORMAT': 'image/png'
           }
         })
       });
@@ -101,7 +101,7 @@ export class MapService {
         source: new TileWMS({
           url: this.settingsService.GEOSERVER_URL + 'wms?',
           params: {
-            'LAYERS': 'streets', 'VERSION': '1.3.0', 'TILED': true, 'TRANSPARENT': true, 'FORMAT': 'image/png'
+            'LAYERS': 'erasmus_valencia_street', 'VERSION': '1.3.0', 'TILED': true, 'TRANSPARENT': true, 'FORMAT': 'image/png'
           }
         })
       });
@@ -113,6 +113,17 @@ export class MapService {
       }
     });
 
+    var poiWMS = new TileLayer({
+        properties: {
+          title: 'POI WMS'
+        },
+        source: new TileWMS({
+          url: this.settingsService.GEOSERVER_URL + 'wms?',
+          params: {
+            'LAYERS': 'erasmus_valencia_poi', 'VERSION': '1.3.0', 'TILED': true, 'TRANSPARENT': true, 'FORMAT': 'image/png'
+          }
+        })
+      });
     var poiVectorSource = new VectorSource({wrapX: false});
     var poiVectorLayer = new VectorLayer({
       source: poiVectorSource,
@@ -125,7 +136,7 @@ export class MapService {
         properties: {
           title: 'My layers'
         },
-        layers: [buildings, buildingsVectorLayer, streetWMS, streetsVectorLayer, poiVectorLayer]
+        layers: [buildings, buildingsVectorLayer, streetWMS, streetsVectorLayer, poiVectorLayer, poiWMS]
       });
     return myLayersGroup;
   }
