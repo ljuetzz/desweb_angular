@@ -1,3 +1,24 @@
-.width-100{
-    width: 100%;
+.hamburger-button {
+  display: none;
+}
+
+.desktop-menu {
+  display: flex;
+  gap: 4px;
+}
+
+.menu-container {
+  background: transparent;
+}
+
+@media (max-width: 768px) {
+
+  .hamburger-button {
+    display: block;
+  }
+
+  .desktop-menu {
+    display: none;
+  }
+
 }

@@ -22,12 +22,14 @@ export class DrawBuildingComponent implements AfterViewInit, OnDestroy{
   drawMode: boolean = false;
   drawBuilding: Draw | undefined;
 
+  // the event service is injected to listen and publish events
   constructor(public mapService: MapService, public router: Router, public eventService: EventService) {
     // Subscribe to events if needed
     this.eventService.eventActivated$.subscribe((event: EventModel) => {
       console.log("Event received in DrawBuildingComponent:", event.type);
       if (event.type != 'drawBuildingActivated') {
         this.drawMode = false; // Reset draw mode if a different event is received
+        this.disableDrawBuildings();
       }
       // Handle the event as needed
     });

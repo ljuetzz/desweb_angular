@@ -94,12 +94,21 @@ export class QueryBuildingComponent implements AfterViewInit, OnDestroy {
 
     const geometry = e.feature.getGeometry();
 
+    const source = this.mapService
+    .getLayerByTitle('POI vector')
+    ?.getSource() as VectorSource;
+
+
+
     if (!(geometry instanceof Point)) {
       return;
     }
 
     this.queryBuildings(geometry);
 
+    setTimeout(() => {
+      source.removeFeature(e.feature);
+    }, 0);
   }
 
   queryBuildings(point: Point) {
@@ -116,7 +125,7 @@ export class QueryBuildingComponent implements AfterViewInit, OnDestroy {
     ].join(',');
 
     const url =
-      'http://ovc.catastro.meh.es/INSPIRE/wfsBU.aspx'
+      'https://ovc.catastro.meh.es/INSPIRE/wfsBU.aspx'
       + '?service=WFS'
       + '&version=2.0.0'
       + '&request=GetFeature'

@@ -1,24 +1,62 @@
-<div class="flexbox-exterior-container">
-<div class="flexbox-interior-container-row width-100">
+<mat-sidenav-container class="menu-container">
 
-<button mat-button routerLink='home'>Home</button>
-<button mat-button routerLink='map'>Map</button>
-<button mat-button routerLink='help'>Help</button>
-<button mat-button routerLink='about'>About</button>
-<button mat-button routerLink='building-form'>Building form</button>
-<button mat-button routerLink='poi-form'>POI form</button>
-<button mat-button routerLink='street-form'>Street form</button>
-<button mat-button routerLink='area-form'>Area form</button>
+  <mat-sidenav #drawer mode="over">
 
+    <button mat-button routerLink="home">Home</button>
+    <button mat-button routerLink="map">Map</button>
+    <button mat-button routerLink="help">Help</button>
+    <button mat-button routerLink="about">About</button>
+    <button mat-button routerLink="building-form">Building form</button>
+    <button mat-button routerLink="poi-form">POI form</button>
+    <button mat-button routerLink="street-form">Street form</button>
+    <button mat-button routerLink="area-form">Area form</button>
 
+  </mat-sidenav>
 
-@if(authService.isAuthenticated){
-    <span>{{authService.username}}</span>
-    <button mat-button matTooltip="Close session" routerLink='logout-form'><mat-icon style="transform:rotate(180deg);">logout</mat-icon></button>
-} @else {
-    <span>Not logged in</span>
-    <button mat-button matTooltip="Init session" routerLink='login-form'><mat-icon routerLink='login-form'>login</mat-icon></button>
-}
-</div>
-</div>
+  <mat-sidenav-content>
 
+    <div class="flexbox-exterior-container">
+
+      <div class="flexbox-interior-container-row width-100">
+
+        <button
+          mat-icon-button
+          class="hamburger-button"
+          (click)="drawer.toggle()">
+
+          <mat-icon>menu</mat-icon>
+
+        </button>
+
+        <div class="desktop-menu">
+
+          <button mat-button routerLink="home">Home</button>
+          <button mat-button routerLink="map">Map</button>
+          <button mat-button routerLink="help">Help</button>
+          <button mat-button routerLink="about">About</button>
+          <button mat-button routerLink="building-form">Building form</button>
+          <button mat-button routerLink="poi-form">POI form</button>
+          <button mat-button routerLink="street-form">Street form</button>
+          <button mat-button routerLink="area-form">Area form</button>
+
+        </div>
+
+        @if(authService.isAuthenticated){
+            <span>{{authService.username}}</span>
+            <button mat-button matTooltip="Close session" routerLink="logout-form">
+              <mat-icon style="transform:rotate(180deg);">logout</mat-icon>
+            </button>
+        } @else {
+            <span>Not logged in</span>
+            <button mat-button matTooltip="Init session" routerLink="login-form">
+              <mat-icon>login</mat-icon>
+            </button>
+        }
+
+      </div>
+
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

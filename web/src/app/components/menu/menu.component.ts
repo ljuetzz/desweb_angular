@@ -3,13 +3,14 @@ import {MatButtonModule} from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [MatButtonModule, RouterLink, MatIconModule, MatTooltip],
+  imports: [MatButtonModule, RouterLink, MatIconModule, MatTooltip, MatSidenavModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
