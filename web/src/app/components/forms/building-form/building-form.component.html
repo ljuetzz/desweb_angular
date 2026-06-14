@@ -11,40 +11,74 @@
             <br> 
             <mat-form-field>
                 <input matInput placeholder="Description" [formControl]="description" name="description">
+                @if (description.hasError('required')) {
+                    <mat-error>Description is required</mat-error>
+                }
             </mat-form-field>  
             <br>  
             <mat-form-field>
                 <input matInput placeholder="Name" [formControl]="name" name="name">
+                @if (name.hasError('required')) {
+                    <mat-error>Name is required</mat-error>
+                }
             </mat-form-field>
             <br>
 
             <mat-form-field>
-                <input matInput placeholder="Floors" [formControl]="floors" name="floors">
+                <input matInput type="number" placeholder="Floors" [formControl]="floors" name="floors">                
+                @if (floors.hasError('required')) {
+                    <mat-error>Floors is required</mat-error>
+                }
+                @if (floors.hasError('min')) {
+                    <mat-error>Floors must be 0 or greater</mat-error>
+                }
+                @if (floors.hasError('pattern')) {
+                    <mat-error>Floors must be an integer</mat-error>
+                }
             </mat-form-field>
             <br>
 
             <mat-form-field>
-                <input matInput placeholder="Height" [formControl]="height" name="height">
+                <input matInput type="number" step="0.01" placeholder="Height" [formControl]="height" name="height">
+                @if (height.hasError('required')) {
+                    <mat-error>Height is required</mat-error>
+                }
+                @if (height.hasError('min')) {
+                    <mat-error>Height must be 0 or greater</mat-error>
+                }
+
             </mat-form-field>
             <br>
 
             <mat-form-field>
                 <input matInput placeholder="Category" [formControl]="category" name="category">
+                @if (category.hasError('required')) {
+                    <mat-error>Category is required</mat-error>
+                }
             </mat-form-field>
             <br>
 
             <mat-form-field>
-                <input matInput placeholder="Visited At" [formControl]="visitedAt" name="visitedAt">
+                <input matInput type="datetime-local" placeholder="Visited At" [formControl]="visitedAt" name="visitedAt">
+                @if (visitedAt.hasError('required')) {
+                    <mat-error>Visited At is required</mat-error>
+                }
             </mat-form-field>
             <br>
             <mat-form-field>
                 <input matInput placeholder="Geometry WKT" [formControl]="geom" name="geom">
+                @if (geom.hasError('required')) {
+                    <mat-error>Geometry WKT is required</mat-error>
+                }
+                @if (geom.hasError('minlength')) {
+                    <mat-error>Geometry WKT must have at least 10 characters</mat-error>
+                }
             </mat-form-field> 
             <!-- -->
             <br>
             <button mat-button matTooltip="Insert" mat-raised-button [disabled]="!controlsGroup.valid" (click)="insert()">Insert</button>
             <button mat-button matTooltip="Delete" (click)="deleteRow()">Delete</button>
-            <button mat-button matTooltip="Update" (click)="update()">Update</button>
+            <button mat-button matTooltip="Update" [disabled]="!controlsGroup.valid" (click)="update()">Update</button>
             <button mat-button matTooltip="Select" (click)="select()">Select</button>
             <button mat-button matTooltip="Select all" (click)="selectAll()">Select all</button>
             <button mat-button matTooltip="Fill Form with Example" (click)="fillFormwithExample()">Fill Form with Example</button>

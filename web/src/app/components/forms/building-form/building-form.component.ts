@@ -44,9 +44,16 @@ export class BuildingFormComponent implements OnInit{
 
   description = new FormControl('', [Validators.required]);
 
-  floors = new FormControl('', [Validators.required]);
+  floors = new FormControl<number | null>(null, [
+    Validators.required,
+    Validators.min(0),
+    Validators.pattern(/^\d+$/)
+  ]);
 
-  height = new FormControl('', [Validators.required]);
+  height = new FormControl<number | null>(null, [
+    Validators.required,
+    Validators.min(0)
+  ]);
 
   category = new FormControl('', [Validators.required]);
 
@@ -78,10 +85,13 @@ export class BuildingFormComponent implements OnInit{
       this.id.setValue(params.get('id') ?? '');
       this.name.setValue(params.get('name') ?? '');
       this.description.setValue(params.get('description') ?? '');
-      this.floors.setValue(params.get('floors') ?? '');
-      this.height.setValue(params.get('height') ?? '');
+      const floors = params.get('floors');
+      this.floors.setValue(floors === null ? null : Number(floors));
+
+      const height = params.get('height');
+      this.height.setValue(height === null ? null : Number(height));
       this.category.setValue(params.get('category') ?? '');
-      this.visitedAt.setValue(params.get('visitedAt') ?? '');
+      this.visitedAt.setValue((params.get('visitedAt') ?? '').slice(0, 16));
       this.geom.setValue(params.get('geom') ?? '');
 
       if (params.get('geom')) {
@@ -173,10 +183,10 @@ export class BuildingFormComponent implements OnInit{
 
     this.name.setValue('Example building');
     this.description.setValue('Description of the example building');
-    this.floors.setValue('3');
-    this.height.setValue('10');
+    this.floors.setValue(3);
+    this.height.setValue(10);
     this.category.setValue('Example category');
-    this.visitedAt.setValue(new Date().toISOString());
+    this.visitedAt.setValue(new Date().toISOString().slice(0, 16));
 
     function randomIntFromInterval(min: number, max: number): number {
       return Math.floor(Math.random() * (max - min + 1) + min);
@@ -232,10 +242,10 @@ export class BuildingFormComponent implements OnInit{
     this.id.setValue(data.id.toString());
     this.name.setValue(data.name);
     this.description.setValue(data.description);
-    this.floors.setValue(data.floors.toString());
-    this.height.setValue(data.height.toString());
+    this.floors.setValue(data.floors);
+    this.height.setValue(data.height);
     this.category.setValue(data.category);
-    this.visitedAt.setValue(data.visitedAt);
+    this.visitedAt.setValue(data.visitedAt.slice(0, 16));    
     this.geom.setValue(data.geom);
   }
 
