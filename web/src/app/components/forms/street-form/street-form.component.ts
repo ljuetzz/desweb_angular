@@ -47,8 +47,15 @@ export class StreetFormComponent {
   //Form component creation
   id = new FormControl('');
   name = new FormControl('', [Validators.required]);
-  length = new FormControl<number | null>(null);
-  lanes = new FormControl(1, [Validators.required]);
+  length = new FormControl<number | null>(null, [
+    Validators.required,
+    Validators.min(0)
+  ]);
+  lanes = new FormControl<number | null>(1, [
+    Validators.required,
+    Validators.min(1),
+    Validators.pattern(/^\d+$/)
+  ]);
   description = new FormControl('', [Validators.required]);
   category = new FormControl('', [Validators.required]);
   visitedAt = new FormControl('', [Validators.required]);
@@ -88,7 +95,7 @@ export class StreetFormComponent {
       this.lanes.setValue(lanes === null ? 1 : Number(lanes));
 
       this.category.setValue(params.get('category') ?? '');
-      this.visitedAt.setValue(params.get('visitedAt') ?? '');
+      this.visitedAt.setValue((params.get('visitedAt') ?? '').slice(0, 16));
       this.geom.setValue(params.get('geom') ?? '');
       this.allow_intersections.setValue(params.get('allow_intersections') === 'true');
 
@@ -141,7 +148,7 @@ export class StreetFormComponent {
     this.name.setValue('Example street');
     this.description.setValue('Description of the example street');
     this.category.setValue('Example category');
-    this.visitedAt.setValue(new Date().toISOString());
+    this.visitedAt.setValue(new Date().toISOString().slice(0, 16));
 
 
 
@@ -242,7 +249,7 @@ export class StreetFormComponent {
     this.length.setValue(data.length);
     this.lanes.setValue(data.lanes);
     this.category.setValue(data.category);
-    this.visitedAt.setValue(data.visitedAt);
+    this.visitedAt.setValue(data.visitedAt.slice(0, 16));
     this.geom.setValue(data.geom);
     this.allow_intersections.setValue(false);
   }

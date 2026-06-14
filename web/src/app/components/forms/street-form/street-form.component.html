@@ -11,35 +11,68 @@
             <br> 
             <mat-form-field>
                 <input matInput placeholder="Description" [formControl]="description" name="description">
-            </mat-form-field>  
+                @if (description.hasError('required')) {
+                    <mat-error>Description is required</mat-error>
+                }
+            </mat-form-field> 
             <br>  
             <mat-form-field>
                 <input matInput placeholder="Name" [formControl]="name" name="name">
+                @if (name.hasError('required')) {
+                    <mat-error>Name is required</mat-error>
+                }
             </mat-form-field>
             <br>
 
             <mat-form-field>
-                <input matInput placeholder="Length" [formControl]="length" name="length">
+                <input matInput type="number" step="0.01" placeholder="Length" [formControl]="length" name="length">
+                @if (length.hasError('required')) {
+                    <mat-error>Length is required</mat-error>
+                }
+                @if (length.hasError('min')) {
+                    <mat-error>Length must be 0 or greater</mat-error>
+                }
             </mat-form-field>
             <br>
 
             <mat-form-field>
-                <input matInput placeholder="Lanes" [formControl]="lanes" name="lanes">
+                <input matInput type="number" placeholder="Lanes" [formControl]="lanes" name="lanes">
+                @if (lanes.hasError('required')) {
+                    <mat-error>Lanes is required</mat-error>
+                }
+                @if (lanes.hasError('min')) {
+                    <mat-error>Lanes must be at least 1</mat-error>
+                }
+                @if (lanes.hasError('pattern')) {
+                    <mat-error>Lanes must be an integer</mat-error>
+                }
             </mat-form-field>
             <br>
 
             <mat-form-field>
                 <input matInput placeholder="Category" [formControl]="category" name="category">
+                @if (category.hasError('required')) {
+                    <mat-error>Category is required</mat-error>
+                }
             </mat-form-field>
             <br>
 
             <mat-form-field>
-                <input matInput placeholder="Visited At" [formControl]="visitedAt" name="visitedAt">
+                <input matInput type="datetime-local" placeholder="Visited At" [formControl]="visitedAt" name="visitedAt">
+                @if (visitedAt.hasError('required')) {
+                    <mat-error>Visited At is required</mat-error>
+                }
             </mat-form-field>
             <br>
             <mat-form-field>
                 <input matInput placeholder="Geometry WKT" [formControl]="geom" name="geom">
-            </mat-form-field> 
+                @if (geom.hasError('required')) {
+                    <mat-error>Geometry WKT is required</mat-error>
+                }
+                @if (geom.hasError('minlength')) {
+                    <mat-error>Geometry WKT must have at least 10 characters</mat-error>
+                }
+            </mat-form-field>
             <br>
             <mat-checkbox [formControl]="allow_intersections" name="allow_intersections">
                 Allow intersections
@@ -48,7 +81,7 @@
             <br>
             <button mat-button matTooltip="Insert" mat-raised-button [disabled]="!controlsGroup.valid" (click)="insert()">Insert</button>
             <button mat-button matTooltip="Delete" (click)="deleteRow()">Delete</button>
-            <button mat-button matTooltip="Update" (click)="update()">Update</button>
+            <button mat-button matTooltip="Update" [disabled]="!controlsGroup.valid" (click)="update()">Update</button>
             <button mat-button matTooltip="Select" (click)="select()">Select</button>
             <button mat-button matTooltip="Select all" (click)="selectAll()">Select all</button>
             <button mat-button matTooltip="Fill form with example data" (click)="fillFormwithExample()">Fill form with example data</button>
@@ -70,6 +103,7 @@
                     <th>description</th>
                     <th>name</th>
                     <th>length</th>
+                    <th>lanes</th>
                     <th>category</th>
                     <th>visitedAt</th>
                     <th>geom</th>
@@ -80,6 +114,7 @@
                             <td>{{b.description}}</td>
                             <td>{{b.name}}</td>
                             <td>{{b.length}}</td>
+                            <td>{{b.lanes}}</td>
                             <td>{{b.category}}</td>
                             <td>{{b.visitedAt}}</td>
                             <td>{{b.geom}}</td>
