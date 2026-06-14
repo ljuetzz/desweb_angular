@@ -1,0 +1,9 @@
+@if (selectMode) {
+  <button mat-button (click)="toggleSelectMode()">
+    <mat-icon matTooltip="Disable select geometry">clear</mat-icon>
+  </button>
+} @else {
+  <button mat-button (click)="toggleSelectMode()">
+    <mat-icon matTooltip="Select geometry to edit">touch_app</mat-icon>
+  </button>
+}

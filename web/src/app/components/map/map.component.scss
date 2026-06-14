@@ -46,3 +46,20 @@
     opacity: 1;
 }
 
+#load-layers-wkt {
+    position: absolute;
+    left: 70px;
+    top: 20px;
+    z-index: 1;
+    border-radius: 5px;
+    opacity: 1;
+}
+
+#select-geometry {
+    position: absolute;
+    left: 70px;
+    top: 150px;
+    z-index: 1;
+    border-radius: 5px;
+    opacity: 1;
+}

@@ -72,10 +72,6 @@ export class MapService {
      return baseLayersGroup;
   }
 
-  loadDataFromApi(table:string) {
-    this.api
-  }
-
   createMyLayers(): LayerGroup {
     var buildings= new TileLayer({
         properties: {

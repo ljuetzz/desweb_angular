@@ -8,11 +8,13 @@ import { DrawBuildingComponent } from '../draw-building/draw-building.component'
 import { DrawPoiComponent } from '../draw-poi/draw-poi.component';
 import { DrawStreetComponent } from '../draw-street/draw-street.component';
 import { QueryBuildingComponent } from '../query-building/query-building.component';
+import { LoadLayersWktComponent } from '../load-layers-wkt/load-layers-wkt';
+import { SelectGeometryComponent } from '../select-geometry/select-geometry';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [DrawBuildingComponent, DrawPoiComponent, DrawStreetComponent, QueryBuildingComponent],
+  imports: [DrawBuildingComponent, DrawPoiComponent, DrawStreetComponent, QueryBuildingComponent, LoadLayersWktComponent, SelectGeometryComponent],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss'
 })
