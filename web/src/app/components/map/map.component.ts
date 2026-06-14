@@ -10,11 +10,12 @@ import { DrawStreetComponent } from '../draw-street/draw-street.component';
 import { QueryBuildingComponent } from '../query-building/query-building.component';
 import { LoadLayersWktComponent } from '../load-layers-wkt/load-layers-wkt';
 import { SelectGeometryComponent } from '../select-geometry/select-geometry';
+import { EditGeometryComponent } from '../edit-geometry/edit-geometry';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [DrawBuildingComponent, DrawPoiComponent, DrawStreetComponent, QueryBuildingComponent, LoadLayersWktComponent, SelectGeometryComponent],
+  imports: [DrawBuildingComponent, DrawPoiComponent, DrawStreetComponent, QueryBuildingComponent, LoadLayersWktComponent, SelectGeometryComponent, EditGeometryComponent],
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss'
 })

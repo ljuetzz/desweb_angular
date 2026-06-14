@@ -1,0 +1,9 @@
+@if (editMode) {
+  <button mat-button (click)="toggleEditMode()">
+    <mat-icon matTooltip="Disable edit geometry">clear</mat-icon>
+  </button>
+} @else {
+  <button mat-button (click)="toggleEditMode()">
+    <mat-icon matTooltip="Edit geometry vertices">edit_location</mat-icon>
+  </button>
+}
