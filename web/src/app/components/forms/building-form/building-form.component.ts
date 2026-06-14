@@ -75,10 +75,17 @@ export class BuildingFormComponent implements OnInit{
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe(params => {
-      var geom = params.get("geom");
-      if (geom){
-        this.geom.setValue(geom);
-        this.geomInUrl=true
+      this.id.setValue(params.get('id') ?? '');
+      this.name.setValue(params.get('name') ?? '');
+      this.description.setValue(params.get('description') ?? '');
+      this.floors.setValue(params.get('floors') ?? '');
+      this.height.setValue(params.get('height') ?? '');
+      this.category.setValue(params.get('category') ?? '');
+      this.visitedAt.setValue(params.get('visitedAt') ?? '');
+      this.geom.setValue(params.get('geom') ?? '');
+
+      if (params.get('geom')) {
+        this.geomInUrl = true;
       }
     });
   }

@@ -77,10 +77,23 @@ export class StreetFormComponent {
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe(params => {
-      var geom = params.get("geom");
-      if (geom){
-        this.geom.setValue(geom);
-        this.geomInUrl=true
+      this.id.setValue(params.get('id') ?? '');
+      this.name.setValue(params.get('name') ?? '');
+      this.description.setValue(params.get('description') ?? '');
+
+      const length = params.get('length');
+      this.length.setValue(length === null ? null : Number(length));
+
+      const lanes = params.get('lanes');
+      this.lanes.setValue(lanes === null ? 1 : Number(lanes));
+
+      this.category.setValue(params.get('category') ?? '');
+      this.visitedAt.setValue(params.get('visitedAt') ?? '');
+      this.geom.setValue(params.get('geom') ?? '');
+      this.allow_intersections.setValue(params.get('allow_intersections') === 'true');
+
+      if (params.get('geom')) {
+        this.geomInUrl = true;
       }
     });
   }

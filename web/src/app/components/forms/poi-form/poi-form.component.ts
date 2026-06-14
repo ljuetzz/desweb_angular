@@ -77,10 +77,18 @@ export class PoiFormComponent {
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe(params => {
-      var geom = params.get("geom");
-      if (geom){
-        this.geom.setValue(geom);
-        this.geomInUrl=true
+      this.id.setValue(params.get('id') ?? '');
+      this.name.setValue(params.get('name') ?? '');
+      this.description.setValue(params.get('description') ?? '');
+      this.category.setValue(params.get('category') ?? '');
+      this.visitedAt.setValue(params.get('visitedAt') ?? '');
+      this.geom.setValue(params.get('geom') ?? '');
+
+      const rating = params.get('rating');
+      this.rating.setValue(rating === null ? null : Number(rating));
+
+      if (params.get('geom')) {
+        this.geomInUrl = true;
       }
     });
   }
