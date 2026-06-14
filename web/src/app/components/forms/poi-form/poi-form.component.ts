@@ -53,7 +53,10 @@ export class PoiFormComponent {
   category = new FormControl('', [Validators.required]);
   visitedAt = new FormControl('', [Validators.required]);
   geom = new FormControl('', [Validators.required, Validators.minLength(10)]);
-  rating = new FormControl<number | null>(null);
+  rating = new FormControl<number | null>(null, [
+    Validators.min(0),
+    Validators.max(5)
+  ]);
   allow_outside_building = new FormControl(false);
 
   //Create a form group to eval the data at once
@@ -81,7 +84,7 @@ export class PoiFormComponent {
       this.name.setValue(params.get('name') ?? '');
       this.description.setValue(params.get('description') ?? '');
       this.category.setValue(params.get('category') ?? '');
-      this.visitedAt.setValue(params.get('visitedAt') ?? '');
+      this.visitedAt.setValue((params.get('visitedAt') ?? '').slice(0, 16));
       this.geom.setValue(params.get('geom') ?? '');
 
       const rating = params.get('rating');
@@ -137,7 +140,7 @@ export class PoiFormComponent {
     this.name.setValue('Example POI');
     this.description.setValue('Description of the example POI');
     this.category.setValue('Example category');
-    this.visitedAt.setValue(new Date().toISOString());
+    this.visitedAt.setValue(new Date().toISOString().slice(0, 16));
 
     function randomIntFromInterval(min: number, max: number): number {
       return Math.floor(Math.random() * (max - min + 1) + min);
@@ -225,7 +228,7 @@ export class PoiFormComponent {
     this.name.setValue(data.name);
     this.description.setValue(data.description);
     this.category.setValue(data.category);
-    this.visitedAt.setValue(data.visitedAt);
+    this.visitedAt.setValue(data.visitedAt.slice(0, 16));
     this.geom.setValue(data.geom);
     this.rating.setValue(data.rating);
     this.allow_outside_building.setValue(false);

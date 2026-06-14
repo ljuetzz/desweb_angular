@@ -1,6 +1,6 @@
 <div class="flexbox-exterior-container">
     <div class="flexbox-responsive-interior-container-500px">
-        <h6 class="text-align-center">Buildings form</h6>
+        <h6 class="text-align-center">POI form</h6>
 
         <!--Form start-->
         <form [formGroup]="controlsGroup"> 
@@ -11,28 +11,52 @@
             <br> 
             <mat-form-field>
                 <input matInput placeholder="Description" [formControl]="description" name="description">
+                @if (description.hasError('required')) {
+                    <mat-error>Description is required</mat-error>
+                }
             </mat-form-field>  
             <br>  
             <mat-form-field>
                 <input matInput placeholder="Name" [formControl]="name" name="name">
+                @if (name.hasError('required')) {
+                    <mat-error>Name is required</mat-error>
+                }
             </mat-form-field>
             <br>
 
             <mat-form-field>
                 <input matInput placeholder="Category" [formControl]="category" name="category">
+                @if (category.hasError('required')) {
+                    <mat-error>Category is required</mat-error>
+                }
             </mat-form-field>
             <br>
 
             <mat-form-field>
-                <input matInput placeholder="Visited At" [formControl]="visitedAt" name="visitedAt">
+                <input matInput type="datetime-local" placeholder="Visited At" [formControl]="visitedAt" name="visitedAt">
+                @if (visitedAt.hasError('required')) {
+                    <mat-error>Visited At is required</mat-error>
+                }
             </mat-form-field>
             <br>
             <mat-form-field>
-                <input matInput placeholder="Rating" [formControl]="rating" name="rating">
+                <input matInput type="number" placeholder="Rating" [formControl]="rating" name="rating">
+                @if (rating.hasError('min')) {
+                    <mat-error>Rating has to be >=0</mat-error>
+                }
+                @if (rating.hasError('max')) {
+                    <mat-error>Rating has to be <=5</mat-error>
+                }
             </mat-form-field>
             <br>
             <mat-form-field>
                 <input matInput placeholder="Geometry WKT" [formControl]="geom" name="geom">
+                @if (geom.hasError('required')) {
+                    <mat-error>Geometry WKT is required</mat-error>
+                }
+                @if (geom.hasError('minlength')) {
+                    <mat-error>Geometry WKT must have at least 10 characters</mat-error>
+                }
             </mat-form-field>
             <br>
             <mat-checkbox [formControl]="allow_outside_building" name="allow_outside_building">
@@ -42,7 +66,7 @@
             <br>
             <button mat-button matTooltip="Insert" mat-raised-button [disabled]="!controlsGroup.valid" (click)="insert()">Insert</button>
             <button mat-button matTooltip="Delete" (click)="deleteRow()">Delete</button>
-            <button mat-button matTooltip="Update" (click)="update()">Update</button>
+            <button mat-button matTooltip="Update" [disabled]="!controlsGroup.valid" (click)="update()">Update</button>
             <button mat-button matTooltip="Select" (click)="select()">Select</button>
             <button mat-button matTooltip="Select all" (click)="selectAll()">Select all</button>
             <button mat-button matTooltip="Fill Form with Example" (click)="fillFormwithExample()">Fill Form with Example</button>
@@ -65,6 +89,7 @@
                     <th>name</th>
                     <th>category</th>
                     <th>visitedAt</th>
+                    <th>rating</th>
                     <th>geom</th>
                     </tr>
                     @for (b of l;track b.id){
@@ -74,6 +99,7 @@
                             <td>{{b.name}}</td>
                             <td>{{b.category}}</td>
                             <td>{{b.visitedAt}}</td>
+                            <td>{{b.rating}}</td>
                             <td>{{b.geom}}</td>
                         </tr>
                     }
