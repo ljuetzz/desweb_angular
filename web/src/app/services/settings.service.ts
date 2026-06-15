@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SettingsService {
-  public mode=3;// 1 for local, 2 for production, 3 for own template
+  public mode=1;// 1 for local, 2 for production, 3 for own template
 
   public API_URL;
   public GEOSERVER_URL;
@@ -19,6 +19,11 @@ export class SettingsService {
       this.GEOSERVER_URL='https://gisserver.car.upv.es/geoserver/';
       this.WEB_URL='https://gisserver.car.upv.es/desweb/';
     } else if (this.mode== 3) {
+      this.API_URL='https://jutz.geomaticaupv.es/api/';
+      this.GEOSERVER_URL='https://geomaticaupv.es/geoserver/jutz/';
+      this.WEB_URL='https://gisserver.car.upv.es/desweb/';
+    }
+    else if (this.mode== 4) {
       this.API_URL='https://jutz.geomaticaupv.es/api/';
       this.GEOSERVER_URL='https://geomaticaupv.es/geoserver/jutz/';
       this.WEB_URL='https://gisserver.car.upv.es/desweb/';

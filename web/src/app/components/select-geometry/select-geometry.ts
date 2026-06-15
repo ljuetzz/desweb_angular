@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { EventService } from '../../services/event.service';
+import { EventModel } from '../../models/event.model';
 
 import Select from 'ol/interaction/Select';
 import { click } from 'ol/events/condition';
@@ -12,7 +13,7 @@ import { MapService } from '../../services/map.service';
 @Component({
   selector: 'app-select-geometry',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatTooltip],
+  imports: [MatIconModule, MatTooltip],
   templateUrl: './select-geometry.html',
   styleUrl: './select-geometry.scss'
 })
@@ -23,8 +24,31 @@ export class SelectGeometryComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private mapService: MapService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private eventService: EventService
+  ) {
+    this.eventService.eventActivated$.subscribe((event: EventModel) => {
+      if (event.type !== 'selectGeometryActivated') {
+        this.selectMode = false;
+        this.disableSelect();
+      }
+    });
+  }
+
+  enableSelect() {
+    this.mapService.disableMapInteractions();
+    this.selectInteraction?.setActive(true);
+    this.eventService.emitEvent(
+      new EventModel('selectGeometryActivated', {})
+    );
+  }
+
+  disableSelect() {
+    this.selectInteraction?.setActive(false);
+    this.selectInteraction?.getFeatures().clear();
+  }
+
+  
 
   ngAfterViewInit(): void {
     this.selectInteraction = new Select({
@@ -92,7 +116,12 @@ export class SelectGeometryComponent implements AfterViewInit, OnDestroy {
 
   toggleSelectMode() {
     this.selectMode = !this.selectMode;
-    this.selectInteraction?.setActive(this.selectMode);
+
+    if (this.selectMode) {
+      this.enableSelect();
+    } else {
+      this.disableSelect();
+    }
   }
 
   ngOnDestroy(): void {

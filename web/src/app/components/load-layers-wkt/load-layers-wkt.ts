@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 
@@ -15,7 +14,7 @@ import { POIModel } from '../../models/poi.model';
 @Component({
   selector: 'app-load-layers-wkt',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatTooltip],
+  imports: [MatIconModule, MatTooltip],
   templateUrl: './load-layers-wkt.html',
   styleUrl: './load-layers-wkt.scss'
 })
